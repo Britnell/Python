@@ -66,8 +66,13 @@ def get_dict( filename):
 	return P.read_json(filename)
 
 
+def get_any_tweet(tweets):
+	ID = next(iter(tweets) )
+	return tweets[ID]
+
+
 # History printer
-def unprinted_tweet(History):
+def get_unprinted(History):
 	unprinted = []
 
 	for tweet in History:
@@ -77,6 +82,10 @@ def unprinted_tweet(History):
 	
 	return unprinted
 
+def print_unprinted(History):
+	for un in get_unprinted(History):
+		un['printed'] = 1
+		# print_tweet un['text']
 
 def date_into_tuple(datestring):
 	#date = ( dd, mm, yyyy, hh, mm )
@@ -111,6 +120,65 @@ def date_into_tuple(datestring):
 	# return tuple
 	return ( day, month, year, hour, minute )
 
+
+def get_date(tweet):
+	return date_into_tuple( tweet['date'] )
+
+
+def greater_smaller_equal(a, b):
+	if a > b:
+		return 'a'
+	elif a < b:
+		return 'b'
+	else:
+		return '='
+
+def compare_dates(A, B):
+	#date = ( dd, mm, yyyy, hh, mm )
+	#         0   1   2     3   4
+	winner = ''
+
+	year = greater_smaller_equal( A[2], B[2] )
+
+	if year is '=':
+		month = greater_smaller_equal( A[1], B[1] )
+		if month is '=':
+			day = greater_smaller_equal( A[0], B[0] )
+			if day is '=':
+				hour = greater_smaller_equal( A[3], B[3] )
+				if hour is '=':
+					minu = greater_smaller_equal( A[4], B[4] )
+					winner = minu
+				else:
+					winner = hour
+			else:
+				winner = day
+		else:
+			winner = month
+	else:
+		winner = year
+
+	return winner
+
+
+
+def most_recent(Tweets):
+	# get any date for loop
+	twit = get_any_tweet(Tweets) 
+	recent = get_date(twit)
+	recent_ID = twit['id']
+
+	print "First date ", recent
+
+	for ID in Tweets:
+		date = get_date( Tweets[ID] )
+		result = compare_dates(recent, date)
+		
+		if result is 'b':
+			recent = date
+			recent_ID = ID
+
+	return Tweets[recent_ID]
 
 
 

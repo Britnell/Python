@@ -121,7 +121,7 @@ def dicts():
 
 	print "~Added to 'Chapters' = ", Book['Chapters']
 
-	Print "~Loop through"
+	print "~Loop through"
 	for index in Book:
 		print index, ":  ", Book[index]
 
