@@ -4,15 +4,26 @@
 #	#
 #	#	#	#	#	#	
 
-#	#	#	#	#	#	#		Imports
+#	#	#	#	#
+#
+#	#	#	#	#		system.path
+def add_to_path(path):
+	import sys
+	sys.path.insert(0, path)
+	#sys.path.append(path)
+	#then import module_name
+
+
+#	#	#	#	#	#	#		Json
 #	#
-#import
+# http://stackabuse.com/reading-and-writing-json-to-a-file-in-python/
 
 import json
-import pprint
+import pprint as PrettyP
 
-def write_json(filename, jason):
-	
+PPP = PrettyP.PrettyPrinter(indent=4)
+
+def write_json(filename, jason):	
 	with open(filename, 'w') as outfile:
 		json.dump(jason, outfile)
 
@@ -29,8 +40,7 @@ def read_json(filename ):
 
 
 def pprint(docum):
-	pp = pprint.PrettyPrinter(indent=4)
-	pp.pprint(docum)
+	PPP.pprint(docum)
 
 
 #	#	#	#	#	#	#
@@ -75,20 +85,6 @@ def read_file():
 	for line in file:
 		print line
 
-#	#	#	#	#	#	#
-# 	#	#	#	#	#	#		
-#	#
-#	#r
-
-def array_of_tuples():
-	ray = [ ('a', 0, 'b', 'd'), (1992, 1993 ), ('green', 'blue', 'red') ]
-	print " # Array of tuples : \n", ray
-
-	print "ray[0] : ", ray[0]
-	print "ray[1] : ", ray[1]
-	print "ray[2] : ", ray[2]
-
-
 
 
 #	#	#	#	#	#	#
@@ -102,37 +98,78 @@ def dicts():
 	print "type: ", type(Book)
 	print "length:  ", len(Book)
 
+	Book = {
+		'a': 1,
+		'b': 2,
+	}
+
 	Book["Chapters"] = 1
 	Book['entry'] = 4512
 	Book['year'] = 1990
 	Book['initials'] = 'TB'
 
-	print Book
+	print "~Print dict: ", Book
+	print "~PRetty print: "
+	pprint(Book)
+
+	print "~keys() : ", Book.keys()
+
 
 
 	if Book.has_key('Chapter'):
 		Book['Chapters'] += 1
 
-	print "Added to 'Chapters' = ", Book['Chapters']
+	print "~Added to 'Chapters' = ", Book['Chapters']
 
-	fake = { 'tum':10, 'koosh':12 , 'pom':3}
-	print fake
-
-
+	Print "~Loop through"
 	for index in Book:
-		print "index = ", index, ",  entry = ", Book[index]
+		print index, ":  ", Book[index]
 
 		tuppel = (index, Book[index] )
-		print "tuppel = ", tuppel
+		print "~tuppel : ", tuppel
+
+
+	# get RANDOM first element:
+	iterate = iter(Book)
+	print next(iterate)
+
+	list_of_keys = Book.list()
+
+	return Book
+
+
+#	#	#	#	#
+
+#	#	#	#	#			Lists
+
+#	#
+
+#	#
+def lists():
+	list1 = ['bits', 'bobs', 1,	2,	3]
+
+	#slicing
+	print list1[0]
+	print list1[2:4]
+
+	# list_of_tuples 
+	ray = [ ('a', 0, 'b', 'd'), (1992, 1993 ), ('green', 'blue', 'red') ]
+	print " # List of tuples : \n", ray
+
+	print "ray[0] : ", ray[0]
+	print "ray[1] : ", ray[1]
+	print "ray[2] : ", ray[2]
 
 
 
 #	#	#	#	#	
 
-#	#	#	#	#	Tuples
+#	#	#	#	#			Tuples
 #	#
 #	#
-
+#	https://www.tutorialspoint.com/python/python_tuples.htm
+#	TUPLES 		CANT	 BE 	CHANGED
+#
 def tuples():
 
 	a = (1,2,3,4,5,6,7,8)
@@ -141,6 +178,12 @@ def tuples():
 	empty = ()
 	one = (1, )
 
+	## ! !!!!!!!!!!!!!!!!!!!!
+	# print a[1] works
+	# BUUUUUUUUT
+	# a[1] = X
+	# DOES NOT WORK
+	#
 	print "type: ", type(a), ", ", type(empty)
 	print "len: ", len(a),",  ", len(empty)
 

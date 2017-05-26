@@ -29,7 +29,7 @@ line = fole.readline()
 
 while line:
 	raw_input('?')
-	print "Line: " +line
+	#print "Line: " +line
 
 	L =line.split()
 
@@ -39,13 +39,13 @@ while line:
 	if m:
 		date = L[0]	
 		#m.group(0)
-		print "Date: " +date
+		#print "Date: " +date
 
 	# RegEd for time DD:DD:DD
 	n = re.search(r'.*\d+:\d+:\d+.*', line)
 	if n:
 		time = L[1]	#m.group(0)
-		print "Time: " +time
+		#print "Time: " +time
 
 	if n and m:
 		# If it contained date & time
@@ -58,12 +58,12 @@ while line:
 
 		if i>=0:
 			sender = 't'
-			print "Sender: Tommy"
+			#print "Sender: Tommy"
 
 		i = L[2].find("Kady")
 		if i>=0:
 			sender = 'k'
-			print "Sender: Kady"
+			#print "Sender: Kady"
 
 		#print "3: "+L[3]		#print next element
 
@@ -120,7 +120,8 @@ raw_input("Calculate Charts?")
 
 # CHARTS
 
-Charts = [ ('.', 0) ]
+# create Dict with 1 element, makes sorting algorithm easier
+Charts = [ ('.', 0) ]		
 its = 1
 
 for D in Dict:
