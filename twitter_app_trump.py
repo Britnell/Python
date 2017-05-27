@@ -161,7 +161,6 @@ def compare_dates(A, B):
 	return winner
 
 
-
 def most_recent(Tweets):
 	# get any date for loop
 	twit = get_any_tweet(Tweets) 
@@ -180,6 +179,25 @@ def most_recent(Tweets):
 
 	return Tweets[recent_ID]
 
+def update_timeline():
+	# get current profiletime
+	timeline = get_timeline_trump()			#timeline = get_demo_timeline()
+
+	# Read stored History from file
+	history = get_history()
+
+	# merge timeline into history
+	updated = merge_results(gistory, timeline)
+
+	print_unprinted( update)
+
+	# save new history to file
+	store_history(updated)
+
+
+# def format_tweet
+#	'&amp' = &
+#	remote http://... 
 
 
 # End of File
