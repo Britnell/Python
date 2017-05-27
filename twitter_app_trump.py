@@ -193,7 +193,20 @@ def update_timeline():
 	store_history(updated)
 
 
-# def format_tweet
+def format_tweet(tweet):
+	text = tweet['text']
+
+	text = text.replace('&amp', '&')
+
+	html = text.find('http://')
+	if html > 0:
+		text = text[:html]
+		
+	htmls = text.find('https://')
+	if htmls >0:
+		text = text[:htmls]
+
+	return text
 #	'&amp' = &
 #	remote http://... 
 

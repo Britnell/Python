@@ -20,15 +20,13 @@
 #	https://dev.twitter.com/rest/reference/get/statuses/user_timeline
 #
 #	#
-#	#
+
 import python_lib as P
 
 from twython import Twython
 
-#APP_KEY = ''
-#APP_SECRET = ''
-
 import sys
+
 sys.path.insert(0, '/home/tom/Coding/Dev_Private')
 
 from twitter_keys import APP_KEY, APP_SECRET

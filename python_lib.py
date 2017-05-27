@@ -4,20 +4,30 @@
 #	#
 #	#	#	#	#	#	
 
+
+
+#	#	#	#	#
+#
+#	#	#	#	#		Regular Expressions
+
+
+
+
 #	#	#	#	#
 #
 #	#	#	#	#		system.path
-def add_to_path(path):
-	import sys
+import sys, os
+
+def paths(path):
 	sys.path.insert(0, path)
 	#sys.path.append(path)
 	#then import module_name
 
-# list files / folder in current directory
-print os.listdir(".")
+	# list files / folder in current directory
+	print os.listdir(".")
 
-# list /path/path/
-print os.listdir("/home/tom")
+	# list /path/path/
+	print os.listdir("/home/tom")
 
 
 #	#	#	#	#	#	#		Json
@@ -208,7 +218,7 @@ def tuples():
 #	#	#	#	#	#	#
 #	#	#	#	#	#	#	Strings
 #	#
-#	#
+#	https://www.tutorialspoint.com/python/python_strings.htm
 def strings():
 
 	a = "There once was one"
