@@ -11,8 +11,6 @@ from printer_lib import *
 #    twitter API limits to 15 actions per day...
 #
 def get_demo_timeline():
-	import twitter_ref as T
-	import python_lib as P
 
 	timeline = P.read_json('data/twitter_trump.txt')
 
@@ -39,8 +37,8 @@ def merge_results(History, TimeLine):
 
 def get_first_twitter():
 	# get current profiletime
-	timeline = get_demo_timeline()
-	#timeline = get_timeline_trump()
+	#timeline = get_demo_timeline()
+	timeline = get_timeline_trump()
 
 	# New empty history
 	History = {}
@@ -60,9 +58,9 @@ def get_first_twitter():
 def store_history(dict):
 	P.write_json('data/twitter_history.txt', dict)
 
+
 def get_history():
 	return P.read_json('data/twitter_history.txt')
-
 
 
 
@@ -79,10 +77,9 @@ def get_unprinted(History):
 
 
 def print_unprinted(History):
-	for un in get_unprinted(History):
-		un['printed'] = 1
-		# print_tweet un['text']
-
+	for tweet in get_unprinted(History):
+		print_tweet( tweet )
+		History[ tweet['id'] ]['printed'] = 1
 
 
 def most_recent(Tweets):
@@ -101,9 +98,20 @@ def most_recent(Tweets):
 
 	return Tweets[recent_ID]
 
+
+def print_recent(Tweets):
+	# get most recent tweet
+	recent = most_recent(Tweets)
+
+	# print it
+	print_tweet( recent)
+
+
 def update_timeline():
 	# get current profiletime
-	timeline = get_timeline_trump()			#timeline = get_demo_timeline()
+	timeline = T.get_timeline_trump()	
+	
+	#timeline = get_demo_timeline()
 
 	# Read stored History from file
 	history = get_history()
@@ -129,9 +137,9 @@ def print_tweet(tweet):
 	Text(user, 'bc', 0)
 	Text(date, 'fr')
 	Text(text)
-	#print user
-	#print date
-	#print text
+
+	Nl()
+	Nl()
 
 
 # End of File
