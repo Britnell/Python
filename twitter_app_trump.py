@@ -9,7 +9,7 @@ def get_demo_timeline():
 	import twitter_ref as T
 	import python_lib as P
 
-	timeline = P.read_json('twitter_trump.txt')
+	timeline = P.read_json('data/twitter_trump.txt')
 
 	return timeline
 
@@ -53,10 +53,10 @@ def get_first_twitter():
 
 
 def store_history(dict):
-	P.write_json('twitter_history.txt', dict)
+	P.write_json('data/twitter_history.txt', dict)
 
 def get_history():
-	return P.read_json('twitter_history.txt')
+	return P.read_json('data/twitter_history.txt')
 
 
 def store_dict( dict, filename):
@@ -166,8 +166,6 @@ def most_recent(Tweets):
 	twit = get_any_tweet(Tweets) 
 	recent = get_date(twit)
 	recent_ID = twit['id']
-
-	print "First date ", recent
 
 	for ID in Tweets:
 		date = get_date( Tweets[ID] )

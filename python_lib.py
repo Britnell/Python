@@ -13,6 +13,12 @@ def add_to_path(path):
 	#sys.path.append(path)
 	#then import module_name
 
+# list files / folder in current directory
+print os.listdir(".")
+
+# list /path/path/
+print os.listdir("/home/tom")
+
 
 #	#	#	#	#	#	#		Json
 #	#

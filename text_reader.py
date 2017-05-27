@@ -2,12 +2,8 @@ import argparse
 import os
 import re
 
-# Just some OS functions to test
-print os.listdir(".")
-print os.listdir("/home/tom")
-
 #filename & open
-name = "WhatsApp.txt"
+name = "data/WhatsApp.txt"
 fole = open(name, 'r')
 
 # Create empty dictionaries
