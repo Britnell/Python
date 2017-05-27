@@ -33,8 +33,18 @@ def Image(img_path):
 	img = Image.open(img_path)
 	data = list(img.getdata())
 	w, h = img.size
-	P.print_bitmap(data, w, h )	
+	P.print_bitmap(data, w, h, True )	
 
+def Resize_Save(img_name, img_path=''):
+	width = 328
+	img = Image.open(img_path +img_name)
+	w, h = img.size
+
+	ratio = width / float(w)
+	height = int( float(h) * float(ratio) )
+	img_fit = img.resize((width, height), Image.ANTIALIAS)
+	
+	img_fit.save( img_path+'resized_'+img_name )
 
 
 # E o File
