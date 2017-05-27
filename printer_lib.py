@@ -5,22 +5,22 @@ import printer
 serialport = printer.ThermalPrinter.SERIALPORT
 
 print "Printer on : ", serialport
-P = printer.ThermalPrinter(serialport=serialport)
+Printer = printer.ThermalPrinter(serialport=serialport)
 
 
 def Text( text, Format=None, nl=True):
 	
 	if Format is None:
-		P.print_text(text)
+		Printer.print_text(text)
 	else:
-		P.print_markup(Format+" "+text)
+		Printer.print_markup(Format+" "+text)
 	# default, add new line at the end 
 	if nl:
 		Nl()
 
 
 def Format(text):
-	P.print_markup(text)
+	Printer.print_markup(text)
 	# 1. char style
 	#	 (n=normal, b=bold, u=underline, i=inverse, f=font B)
 	# 2. char justification#
@@ -29,11 +29,11 @@ def Format(text):
 	#
 
 def Nl():
-	P.print_text('\n')
+	Printer.print_text('\n')
 
 def Line():
 	Nl()
-	P.print_text('_'*32)
+	Printer.print_text('_'*32)
 	Nl()
 
 printer_width = 384
@@ -43,7 +43,7 @@ def Image(img_path):
 	img = PIL.Image.open(img_path)
 	data = list(img.getdata())
 	w, h = img.size
-	P.print_bitmap(data, w, h, True )	
+	Printer.print_bitmap(data, w, h, True )	
 
 # turns : data/img.png
 # into	: data/rsz_img.png
