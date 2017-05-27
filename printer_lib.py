@@ -8,8 +8,11 @@ print "Printer on : ", serialport
 P = printer.ThermalPrinter(serialport=serialport)
 
 
-def Text(text):
+def Text(text, nl=True):
 	P.print_text(text)
+	# default, add new line at the end 
+	if nl:
+		Nl()
 
 def Format(text):
 	P.print_markup(text)
@@ -20,3 +23,18 @@ def Format(text):
 def Nl():
 	P.print_text('\n')
 
+def Line():
+	Nl()
+	P.print_text('_'*32)
+	Nl()
+
+def Image(img_path):
+	from PIL import Image
+	img = Image.open(img_path)
+	data = list(img.getdata())
+	w, h = img.size
+	P.print_bitmap(data, w, h )	
+
+
+
+# E o File
