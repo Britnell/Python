@@ -1,6 +1,11 @@
+
+
+
 import twitter_ref as T
+
 import python_lib as P
 
+from printer_lib import *
 
 # load demo search result from file
 #    twitter API limits to 15 actions per day...
@@ -59,16 +64,6 @@ def get_history():
 	return P.read_json('data/twitter_history.txt')
 
 
-def store_dict( dict, filename):
-	P.write_json(filename,  dict)
-
-def get_dict( filename):
-	return P.read_json(filename)
-
-
-def get_any_tweet(tweets):
-	ID = next(iter(tweets) )
-	return tweets[ID]
 
 
 # History printer
@@ -82,94 +77,23 @@ def get_unprinted(History):
 	
 	return unprinted
 
+
 def print_unprinted(History):
 	for un in get_unprinted(History):
 		un['printed'] = 1
 		# print_tweet un['text']
 
-def date_into_tuple(datestring):
-	#date = ( dd, mm, yyyy, hh, mm )
-
-	date = datestring.split()
-
-	Months = {
-	'Jan': 1,	'Feb': 2,
-	'Mar': 3,	'Apr': 4,
-	'May': 5,	'Jun': 6,
-	'Jul': 7,	'Aug': 8,
-	'Sep': 9,	'Oct': 10,
-	'Nov': 11,	'Dec': 12
-	}
-
-	month = date[1]
-	day = date[2]
-	year = date[5]
-
-	time = date[3].split(':')
-
-	hour = time[0]
-	minute = time[1]
-
-	day = int(day)
-	year = int(year)
-	hour = int(hour)
-	minute = int(minute)
-
-	month = Months[month]
-
-	# return tuple
-	return ( day, month, year, hour, minute )
-
-
-def get_date(tweet):
-	return date_into_tuple( tweet['date'] )
-
-
-def greater_smaller_equal(a, b):
-	if a > b:
-		return 'a'
-	elif a < b:
-		return 'b'
-	else:
-		return '='
-
-def compare_dates(A, B):
-	#date = ( dd, mm, yyyy, hh, mm )
-	#         0   1   2     3   4
-	winner = ''
-
-	year = greater_smaller_equal( A[2], B[2] )
-
-	if year is '=':
-		month = greater_smaller_equal( A[1], B[1] )
-		if month is '=':
-			day = greater_smaller_equal( A[0], B[0] )
-			if day is '=':
-				hour = greater_smaller_equal( A[3], B[3] )
-				if hour is '=':
-					minu = greater_smaller_equal( A[4], B[4] )
-					winner = minu
-				else:
-					winner = hour
-			else:
-				winner = day
-		else:
-			winner = month
-	else:
-		winner = year
-
-	return winner
 
 
 def most_recent(Tweets):
 	# get any date for loop
-	twit = get_any_tweet(Tweets) 
-	recent = get_date(twit)
+	twit = T.get_tweet(Tweets) 
+	recent = T.get_date(twit)
 	recent_ID = twit['id']
 
 	for ID in Tweets:
-		date = get_date( Tweets[ID] )
-		result = compare_dates(recent, date)
+		date = T.get_date( Tweets[ID] )
+		result = T.compare_dates(recent, date)
 		
 		if result is 'b':
 			recent = date
@@ -192,30 +116,22 @@ def update_timeline():
 	# save new history to file
 	store_history(updated)
 
-import re
 
-def format_tweet(tweet):
-	text = tweet['text']
+def print_tweet(tweet):
+	text = T.format_tweet( tweet )
+	text = text[2:]
 
-	# & sign
-	text = text.replace('&amp', '&')
+	user = '@' +tweet['username']
 
-	# remove link at the end of tweet
-	html = text.find('http://')
-	if html > 0:
-		text = text[:html]
+	date = tweet['date'].split()	# split date
+	date = " ".join(date[:4])	# take first 4 elements
 
-	htmls = text.find('https://')
-	if htmls >0:
-		text = text[:htmls]
-
-	uni = text.find('\u')
-	if uni >0:
-		uni_end = text.find()
-
-	return text
-#	'&amp' = &
-#	remote http://... 
+	Text(user, 'bc', 0)
+	Text(date, 'fr')
+	Text(text)
+	#print user
+	#print date
+	#print text
 
 
 # End of File

@@ -22,8 +22,11 @@ def Text( text, Format=None, nl=True):
 def Format(text):
 	P.print_markup(text)
 	# 1. char style
+	#	 (n=normal, b=bold, u=underline, i=inverse, f=font B)
 	# 2. char justification#
+	#	 (l=left, c=centre, r=right)
 	# 3. char ' ' space
+	#
 
 def Nl():
 	P.print_text('\n')
