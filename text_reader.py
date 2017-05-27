@@ -68,6 +68,7 @@ while line:
 			#print L[x]
 			word = L[x].lower()
 
+			# replaces everything but characters
 			#out = rogex.sub('', sling)
 			formed = rogex.sub('', word)
 

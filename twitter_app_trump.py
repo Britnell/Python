@@ -192,19 +192,26 @@ def update_timeline():
 	# save new history to file
 	store_history(updated)
 
+import re
 
 def format_tweet(tweet):
 	text = tweet['text']
 
+	# & sign
 	text = text.replace('&amp', '&')
 
+	# remove link at the end of tweet
 	html = text.find('http://')
 	if html > 0:
 		text = text[:html]
-		
+
 	htmls = text.find('https://')
 	if htmls >0:
 		text = text[:htmls]
+
+	uni = text.find('\u')
+	if uni >0:
+		uni_end = text.find()
 
 	return text
 #	'&amp' = &

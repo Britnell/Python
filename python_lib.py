@@ -9,7 +9,13 @@
 #	#	#	#	#
 #
 #	#	#	#	#		Regular Expressions
+import re
 
+def regexs():
+	RE_word = re.compile(r'[^a-zA-Z]')
+	RE_date = r'.*\d+/\d+/\d+.*'
+	RE_time = r'.*\d+:\d+:\d+.*'
+	match = re.match(RE_date, line)
 
 
 
@@ -252,7 +258,22 @@ def strings():
 
 	print "Split: ", a.split()
 
-	# 12
+	# Unicode
+
+
+	#st = 'pnts'
+	#print type(st), st
+
+	#uni = u'pnts'
+	#print type(uni), uni
+
+	# string = encoded uni
+	#st.encode('latin_1')
+
+	# uni = decoded strong 
+	#uni.decode('latin_1')
+
+
 
 
 
