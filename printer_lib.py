@@ -29,15 +29,16 @@ def Line():
 	Nl()
 
 def Image(img_path):
-	from PIL import Image
-	img = Image.open(img_path)
+	import PIL
+	img = PIL.Image.open(img_path)
 	data = list(img.getdata())
 	w, h = img.size
 	P.print_bitmap(data, w, h, True )	
 
 def Resize_Save(img_name, img_path=''):
+	import PIL
 	width = 328
-	img = Image.open(img_path +img_name)
+	img = PIL.Image.open(img_path +img_name)
 	w, h = img.size
 
 	ratio = width / float(w)
