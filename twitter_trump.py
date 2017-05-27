@@ -110,16 +110,16 @@ def print_recent(Tweets):
 def update_timeline():
 	# get current profiletime
 	timeline = T.get_timeline_trump()	
-	
+
 	#timeline = get_demo_timeline()
 
 	# Read stored History from file
 	history = get_history()
 
 	# merge timeline into history
-	updated = merge_results(gistory, timeline)
+	updated = merge_results(history, timeline)
 
-	print_unprinted( update)
+	print_unprinted( updated)
 
 	# save new history to file
 	store_history(updated)
