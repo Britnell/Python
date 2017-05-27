@@ -55,13 +55,18 @@ def get_first_twitter():
 
 
 
-def store_history(dict):
-	P.write_json('data/twitter_history.txt', dict)
+def store_history(Dict):
+	P.write_json('data/twitter_history.txt', Dict)
 
 
 def get_history():
 	return P.read_json('data/twitter_history.txt')
 
+def store_timeline(Dict):
+	P.write_json('data/twitter_timeline.txt', Dict)
+
+def read_timeline():
+	return P.read_json('data/twitter_timeline.txt')
 
 
 # History printer
@@ -79,7 +84,7 @@ def get_unprinted(History):
 def print_unprinted(History):
 	for tweet in get_unprinted(History):
 		print_tweet( tweet )
-		History[ tweet['id'] ]['printed'] = 1
+		History[str(tweet['id'])]['printed'] = 1
 
 
 def most_recent(Tweets):
@@ -99,7 +104,9 @@ def most_recent(Tweets):
 	return Tweets[recent_ID]
 
 
-def print_recent(Tweets):
+def print_recent():
+	Tweets = get_history()
+
 	# get most recent tweet
 	recent = most_recent(Tweets)
 
@@ -110,8 +117,8 @@ def print_recent(Tweets):
 def update_timeline():
 	# get current profiletime
 	timeline = T.get_timeline_trump()	
-
 	#timeline = get_demo_timeline()
+	store_timeline(timeline)
 
 	# Read stored History from file
 	history = get_history()

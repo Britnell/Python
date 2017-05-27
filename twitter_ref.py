@@ -67,12 +67,21 @@ def get_timeline(username, count=20):
 
 
 def get_timeline_trump():
-	timeline = twitter.get_user_timeline(screen_name='realdonaldtrump')
+	timeline = twitter.get_user_timeline(screen_name='realdonaldtrump', result_type='recent')
 	#default, count=20
 
 	return timeline
 
+def print_timeline(timeline, tag):
+	for tx in timeline:
+		tweet = tweet_as_dict(tx)
+		print tweet[tag]
 
+def print_history(history,tag):
+	for ID in history:
+		print history[ID][tag]
+
+	#print dates of history
 
 #		Turns tweet json into Dict with relevant info
 # 

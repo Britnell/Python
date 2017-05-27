@@ -5,8 +5,10 @@ import printer
 serialport = printer.ThermalPrinter.SERIALPORT
 
 print "Printer on : ", serialport
-Printer = printer.ThermalPrinter(serialport=serialport)
-
+try:
+	Printer = printer.ThermalPrinter(serialport=serialport)
+except:
+	print "Printer not connected (to right serial port)"
 
 def Text( text, Format=None, nl=True):
 	
