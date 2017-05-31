@@ -93,7 +93,7 @@ def most_recent(Tweets):
 	recent = T.get_date(twit)
 	recent_ID = twit['id']
 
-	for ID in Tweets:
+	for ID in reversed(Tweets):
 		date = T.get_date( Tweets[ID] )
 		result = T.compare_dates(recent, date)
 		

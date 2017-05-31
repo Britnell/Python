@@ -1,7 +1,11 @@
+# This requires gmail library from Charlie Guo
+# https://github.com/charlierguo/gmail
+# git clone into same folder as this script
+
 import sys
 
-sys.path.insert(0,'gmail/gmail')
-sys.path.insert(0,'../Dev_Private')
+sys.path.insert(0,'gmail/gmail')		# folder with Gmail library
+sys.path.insert(0,'../Dev_Private')		# Folder with private API keys
 
 from gmail import Gmail
 from gmail_keys import *
@@ -52,10 +56,11 @@ def inbox_demo():
 	email.unread()			# to mark unread
 	#email.archive()		# archive
 
-def print_mail(email):
-	
-	subject = email.subject
-	mail = email.body
+def print_mail(email, limit=200):
+	# subject is unistring
+	subject = email.subject.encode('utf-16')
+	# mail is... normal?
+	mail = email.body[:limit]
 
 	date = email.headers['Received']
 	date = " ".join(date[2:6])
