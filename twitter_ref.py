@@ -3,12 +3,12 @@
 #	#	#	#	#	#	#
 #
 #	#	#			Twython
-#	
-#	
-#	#	#	Basic Usage - 
+#
+#
+#	#	#	Basic Usage -
 #	https://twython.readthedocs.io/en/latest/usage/basic_usage.html
 #
-#	#	#	Advanced Usage - 
+#	#	#	Advanced Usage -
 #	https://twython.readthedocs.io/en/latest/usage/advanced_usage.html#advanced-usage
 #
 #	#		Twitter API
@@ -52,11 +52,11 @@ def twitter_search(keyword, count=20):
 	# Search json has:
 	#	 - search['search_metadata']
 	#    - search['statuses']	# array of tweets,
-	
+
 	num = len( search['statuses'] )		# default = 15
 
 	return search['statuses']
-	
+
 
 #	Returns array of tweets from profile
 def get_timeline(username, count=20):
@@ -84,7 +84,7 @@ def print_history(history,tag):
 	#print dates of history
 
 #		Turns tweet json into Dict with relevant info
-# 
+#
 def tweet_as_dict(tweet):
 	Tweet = {}
 
@@ -106,7 +106,7 @@ def tweet_as_dict(tweet):
 		Tweet['mentions'].append( M['name'] )
 	Tweet['no_mentions'] = len( Tweet['mentions'] )
 
-	Tweet['media_URLs']=[]	
+	Tweet['media_URLs']=[]
 	if tweet['entities'].has_key('media'):
 		for N in tweet['entities']['media']:
 			Tweet['media_URLs'].append( N['media_url'] )
@@ -223,6 +223,6 @@ def format_tweet(tweet):
 
 	return encoded
 #	'&amp' = &
-#	remote http://... 
+#	remote http://...
 
 # END

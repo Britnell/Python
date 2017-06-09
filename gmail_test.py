@@ -4,8 +4,11 @@
 
 import sys
 
+
+#sys.path.insert(0,'../myLibs')		# Folder with my Python libraries / classes
 sys.path.insert(0,'gmail/gmail')		# folder with Gmail library
 sys.path.insert(0,'../Dev_Private')		# Folder with private API keys
+
 
 from gmail import Gmail
 from gmail_keys import *
@@ -64,7 +67,7 @@ def print_mail(email, limit=200):
 
 	date = email.headers['Received']
 	date = " ".join(date[2:6])
-	
+
 	#print subject,"\n",date,"\n",mail,
 	#Nl()
 	Text(subject, 'bc', 1)

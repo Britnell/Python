@@ -1,11 +1,11 @@
-
-
+#
+#
+#
 
 import twitter_ref as T
-
 import python_lib as P
-
 from printer_lib import *
+
 
 # load demo search result from file
 #    twitter API limits to 15 actions per day...
@@ -19,7 +19,7 @@ def get_demo_timeline():
 
 # Input : current History dict;		 new timeline
 # Returns : Updated History dict with new tweets from timeline
-# 
+#
 def merge_results(History, TimeLine):
 	# timeL = array of tweet.json's
 
@@ -45,10 +45,10 @@ def get_first_twitter():
 
 	# merge timeline into history
 	History = merge_results(History, timeline)
-	
+
 	# set history as seen
 	for ID in History:
-		# mark as printed
+		# mark all as printed, to save paper
 		History[ID]['printed'] = 1
 
 	return History
@@ -77,7 +77,7 @@ def get_unprinted(History):
 		if History[tweet]['printed'] is 0:
 			# Print tweet
 			unprinted.append( History[tweet] )
-	
+
 	return unprinted
 
 
@@ -89,14 +89,14 @@ def print_unprinted(History):
 
 def most_recent(Tweets):
 	# get any date for loop
-	twit = T.get_tweet(Tweets) 
+	twit = T.get_tweet(Tweets)
 	recent = T.get_date(twit)
 	recent_ID = twit['id']
 
 	for ID in reversed(Tweets):
 		date = T.get_date( Tweets[ID] )
 		result = T.compare_dates(recent, date)
-		
+
 		if result is 'b':
 			recent = date
 			recent_ID = ID
@@ -116,7 +116,7 @@ def print_recent():
 
 def update_timeline():
 	# get current profiletime
-	timeline = T.get_timeline_trump()	
+	timeline = T.get_timeline_trump()
 	#timeline = get_demo_timeline()
 	store_timeline(timeline)
 

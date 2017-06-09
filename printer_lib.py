@@ -1,5 +1,7 @@
 #---
 
+# Import py-thermal-printer library
+# Py Thermal Printer : github.com/luopio/py-thermal-printer
 import printer
 
 serialport = printer.ThermalPrinter.SERIALPORT
@@ -11,12 +13,12 @@ except:
 	print "Printer not connected (to right serial port)"
 
 def Text( text, Format=None, nl=True):
-	
+
 	if Format is None:
 		Printer.print_text(text)
 	else:
 		Printer.print_markup(Format+" "+text)
-	# default, add new line at the end 
+	# default, add new line at the end
 	if nl:
 		Nl()
 
@@ -45,7 +47,7 @@ def Image(img_path):
 	img = PIL.Image.open(img_path)
 	data = list(img.getdata())
 	w, h = img.size
-	Printer.print_bitmap(data, w, h, True )	
+	Printer.print_bitmap(data, w, h, True )
 
 # turns : data/img.png
 # into	: data/rsz_img.png
@@ -68,7 +70,7 @@ def Resize_Test(img_path):
 	ratio = width / float(w)
 	height = int( float(h) * float(ratio) )
 	img_fit = img.resize((width, height), Image.ANTIALIAS)
-	
+
 	new_path = rename_img(img_path)
 	img_fit.save( new_path )
 	return new_path
@@ -76,14 +78,14 @@ def Resize_Test(img_path):
 
 def Resize_to(img_path, width):
 	from PIL import Image
-	
+
 	img = Image.open(img_path )
 	w, h = img.size
 
 	ratio = width / float(w)
 	height = int( float(h) * float(ratio) )
 	img_fit = img.resize((width, height), Image.ANTIALIAS)
-	
+
 	new_path = rename_img(img_path)
 	img_fit.save( new_path )
 	return new_path
