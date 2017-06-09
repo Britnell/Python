@@ -16,11 +16,12 @@ Reminder file with examples to variable types and associated function.
 
 
 ## 2. [Twitter_ref.py](https://github.com/Britnell/Python/blob/master/twitter_ref.py)
+An implementation of [Twython](https://pypi.python.org/pypi/twython), Twitter API python wrapper.
 
 Contains
-- setup funcitons for twitter
+- setup functions for twitter
 - Functions to search and load profiles
-- functions sorting through the Json returned
+- functions sorting through the Json returned, extract relevant information, and format unistring
 
 ## 3. [Printer Lib](https://github.com/Britnell/Python/blob/master/printer_lib.py)
 This is just an implementation of
