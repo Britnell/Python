@@ -2,7 +2,7 @@
 #	#
 #	#		Python Ref with demo functions
 #	#
-#	#	#	#	#	#	
+#	#	#	#	#	#
 
 
 
@@ -18,7 +18,6 @@ def regexs():
 	match = re.match(RE_date, line)
 
 
-
 #	#	#	#	#
 #
 #	#	#	#	#		system.path
@@ -28,6 +27,9 @@ def paths(path):
 	sys.path.insert(0, path)
 	#sys.path.append(path)
 	#then import module_name
+
+	# prints current dir / path of terminal
+	print os.path.abspath('./')
 
 	# list files / folder in current directory
 	print os.listdir(".")
@@ -45,7 +47,7 @@ import pprint as PrettyP
 
 PPP = PrettyP.PrettyPrinter(indent=4)
 
-def write_json(filename, jason):	
+def write_json(filename, jason):
 	with open(filename, 'w') as outfile:
 		json.dump(jason, outfile)
 
@@ -89,7 +91,7 @@ def read_file():
 	#file.read()	gets full content
 	entire = file.read()
 	print " # entire : ", entire
-	
+
 	file.seek(0)	#rewind to beginning
 
 	#file.readline()	reads one line until line break
@@ -114,7 +116,7 @@ def read_file():
 #	#
 #	#
 def dicts():
-	
+
 	Book = {}
 
 	print "type: ", type(Book)
@@ -174,7 +176,7 @@ def lists():
 	print list1[0]
 	print list1[2:4]
 
-	# list_of_tuples 
+	# list_of_tuples
 	ray = [ ('a', 0, 'b', 'd'), (1992, 1993 ), ('green', 'blue', 'red') ]
 	print " # List of tuples : \n", ray
 
@@ -184,7 +186,7 @@ def lists():
 
 
 
-#	#	#	#	#	
+#	#	#	#	#
 
 #	#	#	#	#			Tuples
 #	#
@@ -234,7 +236,7 @@ def strings():
 	print "length: ", len(a)
 	print "indexing [0] =  ",a[0]
 	print "Slicing, [1:5] =   ",a[1:5]
-	
+
 	c = a.join(b)
 	print "add by .join()  = ", c
 	c = a+b
@@ -270,10 +272,5 @@ def strings():
 	# string = encoded uni
 	#st.encode('latin_1')
 
-	# uni = decoded strong 
+	# uni = decoded strong
 	#uni.decode('latin_1')
-
-
-
-
-

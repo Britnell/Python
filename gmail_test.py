@@ -1,38 +1,51 @@
+#
+#
+#
+
 # This requires gmail library from Charlie Guo
 # https://github.com/charlierguo/gmail
 # git clone into same folder as this script
 
+
 import sys
+path=''
+sys.path.insert(0,path+'gmail/gmail')		# folder with Gmail library
+sys.path.insert(0,path+'../Dev_Private')		# Folder with private API keys
 
-
-#sys.path.insert(0,'../myLibs')		# Folder with my Python libraries / classes
-sys.path.insert(0,'gmail/gmail')		# folder with Gmail library
-sys.path.insert(0,'../Dev_Private')		# Folder with private API keys
-
-
+import time
 from gmail import Gmail
 from gmail_keys import *
 
-from printer_lib import *
+# Instanciate
+mail = Gmail()				##Emails = mail_instance.authenticate(NAME, ACCESS_TOKEN)
 
-mail = Gmail()
+# & log in
+mail.login(NAME, WORD)		# returns TRUE
 
-##Emails = mail_instance.authenticate(NAME, ACCESS_TOKEN)
 
-mail.login(NAME, WORD)
-# returns TRUE
+def mark_all_unread(inbox):
+	for msg in inbox:
+		msg.fetch()
+		msg.unread()
 
+def mark_all_read(inbox):
+	for msg in inbox:
+		msg.fetch()
+		msg.read()
 
 def get_email(inbox, i=0):
 	inbox[i].fetch()
 	return inbox[i]
 
-
 def get_unread(pre_fetch=False):
 	inbox = mail.inbox().mail(unread=True, prefetch=pre_fetch)
-
 	return inbox
 
+def get_inbox():
+	inbox = mail.inbox().mail()
+	# = array of message instances
+	# email = inbox[0], etc..
+	return inbox
 
 def inbox_demo():
 	inbox = mail.inbox()
@@ -55,52 +68,8 @@ def inbox_demo():
 	print email.headers			# info's
 	print email.headers['Received']		# date
 
-
 	email.unread()			# to mark unread
 	#email.archive()		# archive
 
-def print_mail(email, limit=200):
-	# subject is unistring
-	subject = email.subject.encode('utf-16')
-	# mail is... normal?
-	mail = email.body[:limit]
 
-	date = email.headers['Received']
-	date = " ".join(date[2:6])
-
-	#print subject,"\n",date,"\n",mail,
-	#Nl()
-	Text(subject, 'bc', 1)
-	Text(date, 'fr', 1)
-
-	Text(mail)
-
-	Nl()
-	Nl()
-
-
-Headers = """
-	Delivered-To
-	From
-	Return-Path
-	ARC-Seal
-	To
-	Message-ID
-	X-Received
-	X-Google-DKIM-Signature
-	ARC-Authentication-Results
-	ARC-Message-Signature
-	Date
-	X-Notifications
-	Received
-	Received-SPF
-	Authentication-Results
-	X-Account-Notification-Type
-	MIME-Version
-	X-Gm-Message-State
-	DKIM-Signature
-	Content-Type
-	Feedback-ID
-	Subject
-	"""
-# Eo-File
+# End of File
