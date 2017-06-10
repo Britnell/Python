@@ -25,10 +25,9 @@ import python_lib as P
 
 from twython import Twython
 
-import sys
+import sys, time
 
 sys.path.insert(0, '../Dev_Private')
-
 from twitter_keys import APP_KEY, APP_SECRET
 
 # Manual import of variables
@@ -125,47 +124,15 @@ def get_dict( filename):
 	return P.read_json(filename)
 
 
-def get_tweet(tweets):
-	ID = next(iter(tweets) )
-	return tweets[ID]
-
-
-def date_into_tuple(datestring):
-	#date = ( dd, mm, yyyy, hh, mm )
-
-	date = datestring.split()
-
-	Months = {
-	'Jan': 1,	'Feb': 2,
-	'Mar': 3,	'Apr': 4,
-	'May': 5,	'Jun': 6,
-	'Jul': 7,	'Aug': 8,
-	'Sep': 9,	'Oct': 10,
-	'Nov': 11,	'Dec': 12
-	}
-
-	month = date[1]
-	day = date[2]
-	year = date[5]
-
-	time = date[3].split(':')
-
-	hour = time[0]
-	minute = time[1]
-
-	day = int(day)
-	year = int(year)
-	hour = int(hour)
-	minute = int(minute)
-
-	month = Months[month]
-
-	# return tuple
-	return ( day, month, year, hour, minute )
-
-
+#returns python.time struct
 def get_date(tweet):
-	return date_into_tuple( tweet['date'] )
+	#return date_into_tuple( tweet['date'] )
+	as_string = tweet['date']
+	return time.strptime(as_string, "%a %b %d %H:%M:%S +0000 %Y")
+
+def format_date(datestring):
+	#return date_into_tuple( tweet['date'] )
+	return time.strptime(datestring, "%a %b %d %H:%M:%S +0000 %Y")
 
 
 def greater_smaller_equal(a, b):
@@ -176,39 +143,40 @@ def greater_smaller_equal(a, b):
 	else:
 		return '='
 
-def compare_dates(A, B):
-	#date = ( dd, mm, yyyy, hh, mm )
-	#         0   1   2     3   4
+
+def compare_dates(tweet1, tweet2):
+
+	# get each date
+
+	date1= tweet1['date']
+	date2= tweet2['date']
+
+	date1 = format_date(date1)
+	date2 = format_date(date2)
+
+	#loop = len(dateA)
 	winner = ''
 
-	year = greater_smaller_equal( A[2], B[2] )
+	for d in range( 9 ):
+		ratio = greater_smaller_equal( date1[d], date2[d] )
+		if not ratio is '=':
+			# there is a winner
+			winner = ratio
+			break
 
-	if year is '=':
-		month = greater_smaller_equal( A[1], B[1] )
-		if month is '=':
-			day = greater_smaller_equal( A[0], B[0] )
-			if day is '=':
-				hour = greater_smaller_equal( A[3], B[3] )
-				if hour is '=':
-					minu = greater_smaller_equal( A[4], B[4] )
-					winner = minu
-				else:
-					winner = hour
-			else:
-				winner = day
-		else:
-			winner = month
+	# now winner A or B
+	if winner is 'a':
+		return tweet1
+	elif winner is 'b':
+		return tweet2
 	else:
-		winner = year
-
-	return winner
+		return tweet1
 
 
-def format_tweet(tweet):
-	text = tweet['text']
+def format_text(text):
 
 	# & sign
-	#text = text.replace('&amp', '&')
+	text = text.replace('&amp', '&')
 
 	# remove link at the end of tweet
 	html = text.find('http://')

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ### BEGIN INIT INFO
-# Provides:          myservice
+# Provides:          printer_service
 # Required-Start:    $remote_fs $syslog
 # Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
@@ -10,10 +10,18 @@
 # Description:       Put a long description of the service here
 ### END INIT INFO
 
+# # * * * * Run Info
+#   1.  confirm gmail_service.py is executable from commandline
+#   2.  Copy service.sh to /etc/init.d
+#   3.  Run    -$ sudo update-rc.d service.sh defaults
+#   4.
+#
+# # #
+
 # Where to find the Python script
 DIR=/home/tommy/Coding/Python/service
-DAEMON=$DIR/test_service.py
-DAEMON_NAME=test_service     #defines the service, same name as .py
+DAEMON_NAME=printer_service     #defines the service, same name as .py
+DAEMON=$DIR/$DAEMON_NAME.py
 
 # Add any command line options for your daemon here
 DAEMON_OPTS=""
@@ -25,7 +33,6 @@ DAEMON_USER=root
 # The process ID of the script when it runs is stored here:
 PIDFILE=/var/run/$DAEMON_NAME.pid
 #on RasPi =/run/$DAEMON_NAME.pid
-
 . /lib/lsb/init-functions       # loads useful functons from standard file
 
 do_start () {

@@ -4,6 +4,13 @@
 #	#
 #	#	#	#	#	#
 
+#	#	#	#	#	# Time struct
+import time
+
+def format_date(datestring):
+	#return date_into_tuple( tweet['date'] )
+	return time.strptime(datestring, "%a %b %d %H:%M:%S +0000 %Y")
+
 
 
 #	#	#	#	#

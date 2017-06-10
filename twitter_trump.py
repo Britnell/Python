@@ -54,7 +54,6 @@ def get_first_twitter():
 	return History
 
 
-
 def store_history(Dict):
 	P.write_json('data/twitter_history.txt', Dict)
 
@@ -67,6 +66,10 @@ def store_timeline(Dict):
 
 def read_timeline():
 	return P.read_json('data/twitter_timeline.txt')
+
+def get_tweet(tweets):
+	ID = next(iter(tweets) )
+	return tweets[ID]
 
 
 # History printer
@@ -87,21 +90,44 @@ def print_unprinted(History):
 		History[str(tweet['id'])]['printed'] = 1
 
 
+# run on history - uses get_tweet() to get each tweet.
 def most_recent(Tweets):
-	# get any date for loop
-	twit = T.get_tweet(Tweets)
-	recent = T.get_date(twit)
-	recent_ID = twit['id']
+	# get first tweet for comparison loop
+	latest = get_tweet(Tweets)
 
-	for ID in reversed(Tweets):
-		date = T.get_date( Tweets[ID] )
-		result = T.compare_dates(recent, date)
+	#for ID in reversed(Tweets):
+	for ID in Tweets:
+		#compare each tweet to latest
+		each = T.compare_dates( Tweets[ID], latest )
+		latest = each
 
-		if result is 'b':
-			recent = date
-			recent_ID = ID
+	return latest
 
-	return Tweets[recent_ID]
+# takes History - dictionary
+# returns sorted list [0] newest    [x] oldest
+def sort_history(Hist):
+	Sorted = []
+	Sorting = dict(Hist)
+
+	for id in Hist:
+		rec = most_recent(Sorting)			# find most recents
+		Sorted.append(rec)				# add to sorted
+		del Sorting[ str(rec['id']) ]			# remove from dict
+
+	return Sorted
+	#remove from dict
+
+
+
+def most_recent_x(Tweets, x):
+
+	#get sorted list
+	Sorted = sort_history(Tweets)
+
+	return Sorted[:x]
+
+
+
 
 
 def print_recent():
@@ -133,7 +159,7 @@ def update_timeline():
 
 
 def print_tweet(tweet):
-	text = T.format_tweet( tweet )
+	text = T.format_text( tweet['text'] )
 	text = text[2:]
 
 	user = '@' +tweet['username']

@@ -12,6 +12,7 @@ path=''
 sys.path.insert(0,path+'gmail/gmail')		# folder with Gmail library
 sys.path.insert(0,path+'../Dev_Private')		# Folder with private API keys
 
+# Import modules
 import time
 from gmail import Gmail
 from gmail_keys import *
@@ -21,7 +22,7 @@ mail = Gmail()				##Emails = mail_instance.authenticate(NAME, ACCESS_TOKEN)
 
 # & log in
 mail.login(NAME, WORD)		# returns TRUE
-
+logger.info("import gmail as "+NAME )
 
 def mark_all_unread(inbox):
 	for msg in inbox:
@@ -70,6 +71,5 @@ def inbox_demo():
 
 	email.unread()			# to mark unread
 	#email.archive()		# archive
-
 
 # End of File
