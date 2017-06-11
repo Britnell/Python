@@ -12,10 +12,11 @@
 #
 import RPi.GPIO as GPIO
 led = 22
-GPIO.setmode(GPIO.board)
+GPIO.setmode(GPIO.BOARD)
 
 def gpio_led():
 	GPIO.setup(led,GPIO.OUT)
+	print "Set GPIO - LED on pin ", led
 
 def led_on():
 	GPIO.output(led, GPIO.HIGH)

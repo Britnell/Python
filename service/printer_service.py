@@ -81,6 +81,7 @@ logger.info("python path "+SELF_PATH +"python dir: "+PROJ_PATH)
 import sys
 sys.path.insert(0,PROJ_PATH +'/gmail/gmail')		# folder with Gmail library
 sys.path.insert(0,parent_dir(PROJ_PATH) +'/Dev_Private')		# Folder with private API keys
+sys.path.insert(0,PROJ_PATH)
 
 #   * * *       Imports
 #
@@ -131,7 +132,8 @@ while Looping:
 
     #check email for unprinted
     # & print
-    
+
+    # check twitter
     twitter_service()
 
     time.sleep(mins5)       # sleep 5 mins

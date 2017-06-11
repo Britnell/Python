@@ -6,9 +6,9 @@ import printer
 
 serialport = printer.ThermalPrinter.SERIALPORT
 
-print "Printer on : ", serialport
 try:
 	Printer = printer.ThermalPrinter(serialport=serialport)
+	print "Printer on : ", serialport
 except:
 	print "Printer not connected (to right serial port)"
 

@@ -23,8 +23,14 @@ def read_time_stamp(stamp):
 # 	#	#	#	#	#	#		Files
 #	#
 
+import os
+try:
+	SELF_PATH = os.path.dirname(os.path.abspath(__file__))
+except NameError:
+	SELF_PATH = os.path.abspath('.')
+
 #from service_logging import *
-filepath = "data/service_log.txt"
+filepath = SELF_PATH+"/data/service_log.txt"
 
 twitter_tag = 'twitter_log'
 

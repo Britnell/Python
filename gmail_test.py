@@ -22,7 +22,7 @@ mail = Gmail()				##Emails = mail_instance.authenticate(NAME, ACCESS_TOKEN)
 
 # & log in
 mail.login(NAME, WORD)		# returns TRUE
-logger.info("import gmail as "+NAME )
+print "Logged into Gmail as ", NAME		#logger.info("import gmail as "+NAME )
 
 def mark_all_unread(inbox):
 	for msg in inbox:
@@ -77,9 +77,9 @@ def inbox_loop(Yloop=True):
 
     snooze = 5
     inbox = get_inbox()
-    logger.info("got inbox")
+
     mark_all_unread(inbox)
-    logger.info("all unread")
+
     #print "unread"
 
     while Yloop:
@@ -94,5 +94,5 @@ def inbox_loop(Yloop=True):
     		msg.unread()
     		#print '.'
     		time.sleep(snooze)
-			
+
 # End of File

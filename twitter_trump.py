@@ -1,6 +1,12 @@
 #
 #
 #
+# File, Project and relative paths
+import os
+try:
+	SELF_PATH = os.path.dirname(os.path.abspath(__file__))
+except NameError:
+	SELF_PATH = os.path.abspath('.')
 
 import twitter_ref as T
 import python_lib as P
@@ -12,7 +18,7 @@ from printer_lib import *
 #
 def get_demo_timeline():
 
-	timeline = P.read_json('data/twitter_trump.txt')
+	timeline = P.read_json(SELF_PATH +'/data/twitter_trump.txt')
 
 	return timeline
 
@@ -50,22 +56,22 @@ def get_first_twitter():
 	for ID in History:
 		# mark all as printed, to save paper
 		History[ID]['printed'] = 1
-
+	
 	return History
 
 
 def store_history(Dict):
-	P.write_json('data/twitter_history.txt', Dict)
+	P.write_json(SELF_PATH +'/data/twitter_history.txt', Dict)
 
 
 def get_history():
-	return P.read_json('data/twitter_history.txt')
+	return P.read_json(SELF_PATH +'/data/twitter_history.txt')
 
 def store_timeline(Dict):
-	P.write_json('data/twitter_timeline.txt', Dict)
+	P.write_json(SELF_PATH +'data/twitter_timeline.txt', Dict)
 
 def read_timeline():
-	return P.read_json('data/twitter_timeline.txt')
+	return P.read_json(SELF_PATH +'data/twitter_timeline.txt')
 
 def get_tweet(tweets):
 	ID = next(iter(tweets) )

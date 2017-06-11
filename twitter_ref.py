@@ -21,25 +21,34 @@
 #
 #	#
 
-import python_lib as P
-
 from twython import Twython
-
 import sys, time
 
-sys.path.insert(0, '../Dev_Private')
+# in same folder
+import python_lib as P
+
+# File, Project and relative paths
+import os
+try:
+	SELF_PATH = os.path.dirname(os.path.abspath(__file__))
+except NameError:
+	SELF_PATH = os.path.abspath('.')
+
+KEY_PATH = SELF_PATH[:SELF_PATH.rfind('/')] +"/Dev_Private"
+sys.path.insert(0,PROJ_PATH)
+
 from twitter_keys import APP_KEY, APP_SECRET
+print "Loaded KEYS from ", KEY_PATH
 
 # Manual import of variables
 #APP_KEY = twitter_keys.APP_KEY
 #APP_SECRET = twitter_keys.APP_SECRET
 
-
-
 twitter = Twython(APP_KEY, APP_SECRET, oauth_version=2)
 ACCESS_TOKEN = twitter.obtain_access_token()
 twitter = Twython(APP_KEY, access_token=ACCESS_TOKEN)
 
+print "Logged into Twitter with [", APP_KEY[:5], "...]"
 
 # 			Returns array of statuses
 #
