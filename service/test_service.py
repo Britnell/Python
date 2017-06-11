@@ -150,7 +150,7 @@ mark_all_unread(inbox)
 logger.info("all unread")
 #print "unread"
 
-while True:
+while False:
 	for msg in inbox:
 		msg.fetch()
 		msg.read()

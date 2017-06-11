@@ -5,31 +5,36 @@
 #	#	#	#	#	#
 
 #	#	#	#	#	# Time struct
-import time
+import time, datetime
+from twitter_trump import *
 
-def format_date(datestring):
-	#return date_into_tuple( tweet['date'] )
-	return time.strptime(datestring, "%a %b %d %H:%M:%S +0000 %Y")
 
-# takes struct and returns time string for logging
-def time_stamp(time_struct):
-	return time.strftime("%Y %m %d - %a %H:%M:%S", time_struct )
+
+date_format_log = "%Y %m %d - %a %H:%M:%S"
+
+# returns string format of date
+# default : time - now
+def time_stamp(stamp = datetime.datetime.now() ):
+	return stamp.strftime(date_format_log)
 
 # takes string from log and returns time as sturct
 def read_time_stamp(stamp):
-	return time.strptime(stamp, "%Y %m %d - %a %H:%M:%S" )
+	return datetime.datetime.strptime(stamp,  date_format_log)
 
 
 #	#	#	#	#	#	#
 # 	#	#	#	#	#	#		Files
 #	#
+
 #from service_logging import *
 filepath = "data/service_log.txt"
+
+twitter_tag = 'twitter_log'
 
 def log_msg(log_type, text):
 	LogFile = open(filepath, 'a')
 
-	stamp = time_stamp( time.localtime() )
+	stamp = time_stamp( )
 	LogFile.write("\n" +stamp +"::"+ log_type +"::" +text)
 
 	LogFile.close()
@@ -44,10 +49,10 @@ def log_list():
 	LogFile.close()
 	return lines
 
-twitter_tag = 'twitter_log'
 
 def log_twitter(msg='twitter API query'):
 	log_msg(twitter_tag, msg)
+
 
 def last_tweet():
 	log = log_list()
@@ -68,5 +73,34 @@ def last_tweet():
 
 def time_diff(now, then):
 	# convert to datetime
+	t_diff = now-then
+	return t_diff
+
+twitter_interval = 20
+
+def twitter_service():
+
+	#check elapsed time
+	time_now = datetime.datetime.now()
+
+	last_check = last_tweet()
+
+	elapsed = time_now - last_check
+	minutes = elapsed.seconds / 60
+
+	# could do something for first check of the day
+	
+	# if more than 30 mins past
+	if minutes >= twitter_interval:
+		# update history
+		update_timeline()
+		# log twitter search
+		last_tweet()
+		# print new tweet if there is one
+		update_print_newest()
+
+
+
+
 
 # Eo File

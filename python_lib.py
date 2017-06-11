@@ -4,6 +4,26 @@
 #	#
 #	#	#	#	#	#
 
+
+
+#	#	#	#	#
+#						GPIO
+#	#	#	#	#
+#
+import RPi.GPIO as GPIO
+led = 22
+GPIO.setmode(GPIO.board)
+
+def gpio_led():
+	GPIO.setup(led,GPIO.OUT)
+
+def led_on():
+	GPIO.output(led, GPIO.HIGH)
+
+def led_off():
+	GPIO.output(led, GPIO.LOW)
+
+
 #	#	#	#	#	# Time struct
 import time
 

@@ -13,3 +13,5 @@ a=128
 2017 06 10 - Sat 22:58:07::twitter_update::Just updated the timeline from twitter
 2017 06 10 - Sat 23:03:52::twitter_log::Just updated the timeline from twitter
 2017 06 10 - Sat 23:04:06::twitter_log::Just updated the timeline from twitter
+2017 06 11 - Sun 12:24:06::Tommy::Hi service
+2017 06 11 - Sun 12:24:06::twitter_log::twitter API query

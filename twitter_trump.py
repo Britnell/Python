@@ -72,6 +72,12 @@ def get_tweet(tweets):
 	return tweets[ID]
 
 
+def mark_all_printed(History):
+	for tweet in History:
+		History[tweet]['printed'] = 1
+
+	return History
+
 # History printer
 def get_unprinted(History):
 	unprinted = []
@@ -82,7 +88,6 @@ def get_unprinted(History):
 			unprinted.append( History[tweet] )
 
 	return unprinted
-
 
 def print_unprinted(History):
 	for tweet in get_unprinted(History):
@@ -103,6 +108,7 @@ def most_recent(Tweets):
 
 	return latest
 
+
 # takes History - dictionary
 # returns sorted list [0] newest    [x] oldest
 def sort_history(Hist):
@@ -118,16 +124,12 @@ def sort_history(Hist):
 	#remove from dict
 
 
-
 def most_recent_x(Tweets, x):
 
 	#get sorted list
 	Sorted = sort_history(Tweets)
 
 	return Sorted[:x]
-
-
-
 
 
 def print_recent():
@@ -140,7 +142,7 @@ def print_recent():
 	print_tweet( recent)
 
 
-def update_timeline():
+def update_timeline(print_too=False):
 	# get current profiletime
 	timeline = T.get_timeline_trump()
 	#timeline = get_demo_timeline()
@@ -152,10 +154,27 @@ def update_timeline():
 	# merge timeline into history
 	updated = merge_results(history, timeline)
 
-	print_unprinted( updated)
+	if print_too:
+		print_unprinted( updated)
 
 	# save new history to file
 	store_history(updated)
+
+
+def update_print_newest(print_anyway=False):
+	# Read stored History from file
+	history = get_history()
+
+	# get newest tweet
+	newest = most_recent(history)
+
+	if newest['printed']==0 or print_anyway:
+		print_tweet(newest)
+		newest['printed']=1
+
+	# save new history to file
+	store_history(updated)
+
 
 
 def print_tweet(tweet):

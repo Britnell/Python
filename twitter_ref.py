@@ -124,15 +124,23 @@ def get_dict( filename):
 	return P.read_json(filename)
 
 
+date_format_tweet = "%a %b %d %H:%M:%S +0000 %Y"
+
 #returns python.time struct
 def get_date(tweet):
 	#return date_into_tuple( tweet['date'] )
 	as_string = tweet['date']
-	return time.strptime(as_string, "%a %b %d %H:%M:%S +0000 %Y")
+	return datetime.datetime.strptime(as_string,  date_format_tweet)
+	#previously used python.time but can not compute time difference
+	#return time.strptime(as_string, "%a %b %d %H:%M:%S +0000 %Y")
 
-def format_date(datestring):
-	#return date_into_tuple( tweet['date'] )
-	return time.strptime(datestring, "%a %b %d %H:%M:%S +0000 %Y")
+def format_datetime(datestring):
+	return datetime.datetime.strptime(datestring,  date_format_tweet)
+	#return time.strptime(datestring, "%a %b %d %H:%M:%S +0000 %Y")
+
+# takes time str from tweet and returns time.time-struct
+def format_time(datestring):
+	return time.strptime(datestring, date_format_tweet)
 
 
 def greater_smaller_equal(a, b):
@@ -146,13 +154,13 @@ def greater_smaller_equal(a, b):
 
 def compare_dates(tweet1, tweet2):
 
-	# get each date
-
+	# get each date string
 	date1= tweet1['date']
 	date2= tweet2['date']
 
-	date1 = format_date(date1)
-	date2 = format_date(date2)
+	# turn string into time.time struct
+	date1 = format_time(date1)
+	date2 = format_time(date2)
 
 	#loop = len(dateA)
 	winner = ''
@@ -174,9 +182,10 @@ def compare_dates(tweet1, tweet2):
 
 
 def format_text(text):
+	#	'&amp' = &
+	#	remote http://...
 
-	# & sign
-	text = text.replace('&amp', '&')
+	text = text.replace('&amp', '&')		# & sign
 
 	# remove link at the end of tweet
 	html = text.find('http://')
@@ -190,7 +199,6 @@ def format_text(text):
 	encoded = text.encode('utf-16')
 
 	return encoded
-#	'&amp' = &
-#	remote http://...
+
 
 # END
