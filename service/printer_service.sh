@@ -19,7 +19,7 @@
 # # #
 
 # Where to find the Python script
-DIR=/home/tommy/Coding/Python/service
+DIR=/home/pi/Coding/Python/service
 DAEMON_NAME=printer_service     #defines the service, same name as .py
 DAEMON=$DIR/$DAEMON_NAME.py
 

@@ -6,9 +6,6 @@
 
 #	#	#	#	#	# Time struct
 import time, datetime
-from twitter_trump import *
-
-
 
 date_format_log = "%Y %m %d - %a %H:%M:%S"
 
@@ -75,31 +72,6 @@ def time_diff(now, then):
 	# convert to datetime
 	t_diff = now-then
 	return t_diff
-
-twitter_interval = 20
-
-def twitter_service():
-
-	#check elapsed time
-	time_now = datetime.datetime.now()
-
-	last_check = last_tweet()
-
-	elapsed = time_now - last_check
-	minutes = elapsed.seconds / 60
-
-	# could do something for first check of the day
-	
-	# if more than 30 mins past
-	if minutes >= twitter_interval:
-		# update history
-		update_timeline()
-		# log twitter search
-		last_tweet()
-		# print new tweet if there is one
-		update_print_newest()
-
-
 
 
 

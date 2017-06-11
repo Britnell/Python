@@ -12,7 +12,6 @@ import logging
 import logging.handlers
 import argparse
 import sys
-import time  # this is only being used as part of the example
 
 # Defaults
 LOG_FILENAME = "/tmp/printer_service.log"
@@ -87,89 +86,59 @@ sys.path.insert(0,parent_dir(PROJ_PATH) +'/Dev_Private')		# Folder with private 
 #
 #
 
-import time
-from gmail import Gmail
-from gmail_keys import *
-import twitter_trump as trump
+import twitter_trump as Trump
 import gmail_test as email
+import service_logging as Log
 
 #   * * *       Lets beginning
 #   *
 #   *
+import datetime, time
+twitter_interval = 20
 
-# Instanciate
-mail = Gmail()				##Emails = mail_instance.authenticate(NAME, ACCESS_TOKEN)
+def twitter_service():
 
-# & log in
-mail.login(NAME, WORD)		# returns TRUE
-logger.info("import gmail as "+NAME )
+	#check elapsed time
+	time_now = datetime.datetime.now()
 
-def mark_all_unread(inbox):
-	for msg in inbox:
-		msg.fetch()
-		msg.unread()
+	last_check = Log.last_tweet()
 
-def mark_all_read(inbox):
-	for msg in inbox:
-		msg.fetch()
-		msg.read()
+	elapsed = time_now - last_check
+	minutes = elapsed.seconds / 60
 
-def get_email(inbox, i=0):
-	inbox[i].fetch()
-	return inbox[i]
+	# could do something for first check of the day
 
-def get_unread(pre_fetch=False):
-	inbox = mail.inbox().mail(unread=True, prefetch=pre_fetch)
-	return inbox
+	# if more than 30 mins past
+	if minutes >= twitter_interval:
+		# update history
+		Trump.update_timeline()
 
-def get_inbox():
-	inbox = mail.inbox().mail()
-	# = array of message instances
-	# email = inbox[0], etc..
-	return inbox
+		# log twitter search
+		Log.log_twitter()
 
-def inbox_demo():
-	inbox = mail.inbox()
-	# = mailbox.Mailbox instance
+		# print new tweet if there is one
+		Trump.update_print_newest()
 
-	inbox = mail.inbox().mail()
-	# = array of message instances
 
-	email = inbox[0]
-	# = message.Message instance
+#   * * *       Lets beginning
+#   *
+#   *
+Looping = True
+mins5 = 60 * 5
 
-	inbox[0].fetch()
-	# Returns email.message.Message instance  (?)
+while Looping:
+    # every 5 mimnutes wake up and check:
 
-	# now
-	email = inbox[0]
+    #check email for unprinted
+    # & print
+    
+    twitter_service()
 
-	print email.subject			# subject
-	print email.body			# mail body
-	print email.headers			# info's
-	print email.headers['Received']		# date
+    time.sleep(mins5)       # sleep 5 mins
 
-	email.unread()			# to mark unread
-	#email.archive()		# archive
 
-snooze = 5
-inbox = get_inbox()
-logger.info("got inbox")
-mark_all_unread(inbox)
-logger.info("all unread")
-#print "unread"
 
-while False:
-	for msg in inbox:
-		msg.fetch()
-		msg.read()
-		#print '.'
-		time.sleep(snooze)
+    #
 
-	for msg in inbox:
-		#msg.fetch()
-		msg.unread()
-		#print '.'
-		time.sleep(snooze)
 
 # End of File

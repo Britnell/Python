@@ -72,4 +72,27 @@ def inbox_demo():
 	email.unread()			# to mark unread
 	#email.archive()		# archive
 
+
+def inbox_loop(Yloop=True):
+
+    snooze = 5
+    inbox = get_inbox()
+    logger.info("got inbox")
+    mark_all_unread(inbox)
+    logger.info("all unread")
+    #print "unread"
+
+    while Yloop:
+    	for msg in inbox:
+    		msg.fetch()
+    		msg.read()
+    		#print '.'
+    		time.sleep(snooze)
+
+    	for msg in inbox:
+    		#msg.fetch()
+    		msg.unread()
+    		#print '.'
+    		time.sleep(snooze)
+			
 # End of File
