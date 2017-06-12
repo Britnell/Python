@@ -35,7 +35,7 @@ except NameError:
 	SELF_PATH = os.path.abspath('.')
 
 KEY_PATH = SELF_PATH[:SELF_PATH.rfind('/')] +"/Dev_Private"
-sys.path.insert(0,PROJ_PATH)
+sys.path.insert(0,KEY_PATH)
 
 from twitter_keys import APP_KEY, APP_SECRET
 print "Loaded KEYS from ", KEY_PATH

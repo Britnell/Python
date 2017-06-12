@@ -10,10 +10,14 @@
 #						GPIO
 #	#	#	#	#
 #
-import RPi.GPIO as GPIO
-led = 22
-GPIO.setmode(GPIO.BOARD)
-
+"""
+try:
+	import RPi.GPIO as GPIO
+	led = 22
+	GPIO.setmode(GPIO.BOARD)
+except NameError, ImportError:
+	print "ERROR  - did not import GPIO"
+"""
 def gpio_led():
 	GPIO.setup(led,GPIO.OUT)
 	print "Set GPIO - LED on pin ", led

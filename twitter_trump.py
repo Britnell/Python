@@ -56,7 +56,7 @@ def get_first_twitter():
 	for ID in History:
 		# mark all as printed, to save paper
 		History[ID]['printed'] = 1
-	
+
 	return History
 
 
@@ -68,10 +68,10 @@ def get_history():
 	return P.read_json(SELF_PATH +'/data/twitter_history.txt')
 
 def store_timeline(Dict):
-	P.write_json(SELF_PATH +'data/twitter_timeline.txt', Dict)
+	P.write_json(SELF_PATH +'/data/twitter_timeline.txt', Dict)
 
 def read_timeline():
-	return P.read_json(SELF_PATH +'data/twitter_timeline.txt')
+	return P.read_json(SELF_PATH +'/data/twitter_timeline.txt')
 
 def get_tweet(tweets):
 	ID = next(iter(tweets) )
@@ -179,7 +179,7 @@ def update_print_newest(print_anyway=False):
 		newest['printed']=1
 
 	# save new history to file
-	store_history(updated)
+	store_history(history)
 
 
 
