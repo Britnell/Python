@@ -136,6 +136,9 @@ while Looping:
     # check twitter
     twitter_service()
 
+    # check Emails and print an unread
+    email.print_oldest_unread()
+
     time.sleep(mins5)       # sleep 5 mins
 
 
